@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>The Plan</title>
+    <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      height: 100%;
+      float: right;
+      width: 60%;
+      height: 100%;
+      background-color: #ccc;
+    }
+    </style>
+    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
+
+    <script type="text/javascript">
+
+    var directions=[];
+    var colors=["#a4485b","#69f1eb","#f18256","#15a071","#ffae19","#ff7f50","#ff75aa","#a01b1b","#bc8f8f","#f4a460","#00ff00","#ff00ff"
+  ,"#ff0000","#00ffff","#ffff00","#0000ff","#009900","#990099"]
+    for(var j=0;j<18;j++)
+    {
+        directions[j]=  L.mapquest.directions();
+        directions[j].setLayerOptions({
+routeRibbon: {
+color: colors[j],
+opacity: 1.0,
+showTraffic: false
+},
+alternateRouteRibbon: {
+opacity: 1.0
+},
+});   }
+
+
+
+
+
+      window.onload = function() {
+        L.mapquest.key = '3rLQ8aMFoRv1OWMnquXJwuAlIaSHPLRc';
+        var og={{org|safe}};
+        console.log(og);
+        var map = L.mapquest.map('map', {
+          center: [og['lat'],og['lng']],
+          layers: L.mapquest.tileLayer('map'),
+          zoom: 13
+        });
+
+        var wayp={{ wp|safe }};
+        var origin={{orgname|safe}};
+        console.log(wayp);
+
+        for(var j=0;j<wayp.length;j++)
+        {
+
+    directions[j].route({
+    start: origin[0],
+    end: origin[0],
+    waypoints: wayp[j]
+     });
+        }
+
+
+      }
+    </script>
+  </head>
+  <body>
+
+      <h2> The Groups of Destinations created are:- </h2>
+    <ul>
+    {%  for j in fans  %}
+    <li>
+    <p>
+            {%  for k in j %}
+            <td> {{k}}  </td>
+            {%endfor%}
+    <p>
+    </li>
+    {%endfor%}
+  </ul>
+    <div id='map'></div>
+
+
+  </body>
+</html>

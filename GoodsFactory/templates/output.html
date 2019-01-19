@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>The Plan</title>
+    <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      height: 100%;
+      float: right;
+      width: 60%;
+      height: 100%;
+      background-color: #ccc;
+    }
+    </style>
+  </head>
+  <body>
+
+      <h2> The Groups of Destinations created are:- </h2>
+    <ul>
+    {%  for j in fans  %}
+    <li>
+    <p>
+            {%  for k in j %}
+            <td> {{k}}  </td>
+            {%endfor%}
+    <p>
+    </li>
+    {%endfor%}
+  </ul>
+    <div id='map'></div>
+
+    <script>
+      function initMap() {
+        var l={{ j|safe }};
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 6,
+          center: {{org|safe}}
+        });
+        directionsDisplay.setMap(map);
+        /*
+        for(var i=0;i<l.length;i++) {
+
+            console.log(l[i]['waypoints']);
+            for(var j=0;j<l[i]['waypoints'].length;j++) {
+               l[i]['waypoints'][j]['stopover']=true;
+            }
+            l[i]['optimizeWaypoints']=false;
+            directionsService.route(l[i], function(response, status) {
+              if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+              } else {
+                window.alert('Directions request failed due to ' + status);
+                console.log(status);
+              }
+            });
+
+
+
+        }    */
+        for(var j=0;j<l[0]['waypoints'].length;j++) {
+           l[0]['waypoints'][j]['stopover']=true;
+        }
+
+        directionsService.route( l[0], function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+            console.log(status);
+          }
+        });
+
+
+      }
+
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcKLUkDkZTNUWbKIutopkOUFnbu-wk2C0&callback=initMap">
+    </script>
+  </body>
+</html>

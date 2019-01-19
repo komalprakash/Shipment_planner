@@ -1,0 +1,46 @@
+    <!DOCTYPE html>
+    <html lang="en" dir="ltr">
+      <head>
+        <meta charset="utf-8">
+        <title>Shipment Planner</title>
+        <style>
+        #box1 ,#box2,#box3, #box4 {
+          margin-top: 30px;
+          
+        }
+        </style>
+      </head>
+      <body>
+        <h1> ADD YOUR SHIPMENTS HERE</h1>
+        <div id="box1">
+        <form method="POST" >
+          {{ form1 }}
+          {% csrf_token %}
+          <input type="submit" class="btn btn-primary" value="Add Shipment" name="AddShipment">
+        </form>
+      </div>
+
+        <div id="box2">
+          <form method="POST">
+            {{ ow }}
+            {% csrf_token %}
+
+          <input type="submit" value="Plan Shipment" name="PlanShipment">
+         </form>
+       </div>
+
+       <div id="box3">
+         <form method="POST">
+           {% csrf_token %}
+         <input type="submit" class="btn btn-primary" value="Clear all Shipment" name="ClearThem">
+        </form>
+      </div>
+
+      <div id="box4">
+        <h2>The Shipments Added are </h2>
+          {% for i in data %}
+          <p> {{ i.slno }} : {{ i.destination }}  {{i.weight}}  </p>
+          {% endfor %}
+      </div>
+      </body>
+    </html>
