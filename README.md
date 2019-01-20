@@ -11,29 +11,20 @@ Deployed on (http://baidyanath.pythonanywhere.com/shipmentplanner/)
 
 Make sure you import following libraries:
 
-
 -certifi
-
 
 -chardet
 
-
 -Django
-
 
 -idna
 
-
 -polyline
-
 
 -pytz
 
-
 -requests
 
-
 -six
-
 
 -urllib3
